@@ -1,6 +1,8 @@
 //Torres Lucía
 //https://youtu.be/LP9s-XU5yEU
 
+//https://docs.google.com/document/d/1kQzZ0Lwgp9a1W3cmE1W87mEmSGPLPb3WDCwtogLHwes/edit?tab=t.0  de la cvomision 3, no se si valga para nosotros pero voy a suponer q si pq no tiene una especificación
+
 
 
 // interactividades: con el click izquierdo estiras el hoyo negro central, con el derecho lo podes rotar, las flechas arriba y abajo cambian el tamaño de los ovalos de la grilla, con el epsacio cambia a una escala de grises random y con la r reinicias la imagen.
@@ -67,7 +69,7 @@ void draw() {
 
   // capa intermedia ponele donde esta la grilla de los ovalos
   for (int i = 0; i < cantX; i++) {
-    for (int j = -2; j < cantY; j++) {
+    for (int j = -2; j < cantY; j++){
 
       float xReal = 400 + (i * tamCelda);
       float yReal = j * 14.5;
@@ -77,7 +79,7 @@ void draw() {
       }
 
       float distancia = dist(xReal, yReal, 600, 200);
-      float anchoPunto = daAncho(distancia);
+      float anchoPunto = daAncho(distancia, tamanoOvalos);
 
       dibujaOvalos(colorPuntos, xReal, yReal, anchoPunto, 11);
     }
@@ -106,8 +108,9 @@ void dibujaOvalos(color c, float px, float py, float ovalW, float ovalH) {
   ellipse(px, py, ovalW, ovalH);
 }
 
-float daAncho(float d) {
-  float total = 17 + tamanoOvalos;
+float daAncho(float d, float modificadorTeclado){
+  float base = map(d, 0, 400, 14, 18); 
+  float total = base + modificadorTeclado;
   return total;
 }
 
@@ -166,7 +169,7 @@ void keyPressed() {
   if (key == CODED) {
     if (keyCode == UP) {
       tamanoOvalos += 2;
-    } else if (keyCode == DOWN) {
+    } else if (keyCode == DOWN){
       tamanoOvalos -= 2;
     }
   }
@@ -175,7 +178,7 @@ void keyPressed() {
     colorPuntos = daGrises();
   }
   //por si usan el bloq mayus, imaginandolo como un juego
-  if (key == 'r' || key == 'R') {
+  if (key == 'r' || key == 'R'){
     tamanoOvalos = 0;
     colorPuntos = color(0);
     escalaX = 1.0;
